@@ -1,0 +1,50 @@
+
+<div id="builder" class="page">
+  <div class="hero">
+    <div class="flowers">🌹 💗 🌹</div>
+    <h1>LoveStory</h1>
+    <p>Create a little surprise for someone special.</p>
+  </div>
+
+  <div class="form-card">
+    <h2>Let's create your surprise 💌</h2>
+
+    <label>Their name</label>
+    <input id="name" placeholder="Enter their name">
+
+    <label>Your name</label>
+    <input id="sender" placeholder="Enter your name">
+
+    <label>Your special message</label>
+    <textarea id="message" placeholder="Write something from your heart..."></textarea>
+
+    <label>Choose a theme</label>
+    <select id="theme">
+      <option value="pink">Romantic Pink 💗</option>
+      <option value="red">Red Roses ❤️</option>
+      <option value="purple">Dreamy Purple 💜</option>
+    </select>
+
+    <label>Photo link (optional)</label>
+    <input id="photo" placeholder="Paste your photo link">
+
+    <label>Song link (optional)</label>
+    <input id="song" placeholder="Paste a song audio link">
+
+    <button onclick="createGift()">Create my surprise ✨</button>
+    <p id="status"></p>
+  </div>
+</div>
+
+<div id="gift" class="page" hidden>
+  <div class="gift-card">
+    <div class="flowers">🌹🌹🌹</div>
+    <h1 id="giftTitle"></h1>
+    <p>A little surprise made just for you ❤️</p>
+    <img id="giftPhoto" hidden>
+    <div class="letter" id="giftMessage"></div>
+    <p id="giftSender"></p>
+    <audio id="giftSong" controls hidden></audio>
+    <div class="flowers">💗 🌷 💗</div>
+  </div>
+</div>
