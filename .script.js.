@@ -1,0 +1,85 @@
+
+function createGift() {
+  const data = {
+    name: document.getElementById("name").value,
+    sender: document.getElementById("sender").value,
+    message: document.getElementById("message").value,
+    theme: document.getElementById("theme").value,
+    photo: document.getElementById("photo").value,
+    song: document.getElementById("song").value
+  };
+
+  if (!data.name.trim() || !data.message.trim()) {
+    document.getElementById("status").textContent =
+      "Please enter a name and a message ❤️";
+    return;
+  }
+
+  const encoded = btoa(
+    unescape(encodeURIComponent(JSON.stringify(data)))
+  );
+
+  const link = location.origin + location.pathname +
+    "#gift=" + encoded;
+
+  document.getElementById("status").textContent =
+    "Your surprise is ready! Copy your link below 💗";
+
+  let old = document.getElementById("shareLink");
+  if (old) old.remove();
+
+  const result = document.createElement("button");
+  result.id = "shareLink";
+  result.textContent = "Copy my surprise link 💌";
+  result.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(link);
+      result.textContent = "Link copied! ❤️";
+    } catch {
+      prompt("Copy your surprise link:", link);
+    }
+  };
+
+  document.querySelector(".form-card").appendChild(result);
+}
+
+function showGift(data) {
+  document.getElementById("builder").hidden = true;
+  document.getElementById("gift").hidden = false;
+
+  document.body.className = data.theme || "pink";
+
+  document.getElementById("giftTitle").textContent =
+    "For " + data.name + " ❤️";
+
+  document.getElementById("giftMessage").textContent =
+    data.message;
+
+  document.getElementById("giftSender").textContent =
+    "With love, " + data.sender;
+
+  if (data.photo) {
+    const photo = document.getElementById("giftPhoto");
+    photo.src = data.photo;
+    photo.hidden = false;
+  }
+
+  if (data.song) {
+    const song = document.getElementById("giftSong");
+    song.src = data.song;
+    song.hidden = false;
+  }
+}
+
+if (location.hash.startsWith("#gift=")) {
+  try {
+    const encoded = location.hash.slice(6);
+    const data = JSON.parse(
+      decodeURIComponent(escape(atob(encoded)))
+    );
+    showGift(data);
+  } catch {
+    document.getElementById("status").textContent =
+      "Sorry, this surprise link is invalid.";
+  }
+}
